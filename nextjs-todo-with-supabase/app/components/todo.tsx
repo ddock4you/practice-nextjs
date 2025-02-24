@@ -12,7 +12,12 @@ export default function Todo() {
     <div className="w-full flex item-center gap-1">
       <Checkbox checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
       {isEditing ? (
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          type="text"
+          className="flex-1 border-b-black border-b pb-1"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       ) : (
         <p className={`flex-1 ${completed && "line-through"}`}>{title}</p>
       )}
