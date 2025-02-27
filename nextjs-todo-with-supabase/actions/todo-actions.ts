@@ -1,3 +1,5 @@
+"use server";
+
 import { Database } from "types_db";
 import { createServerSupabaseClient } from "utils/supabase/server";
 
@@ -10,7 +12,7 @@ function handleError(error: Error) {
   throw new Error(error.message);
 }
 
-export async function getTodos(searchInput = ""): Promise<Row[] | undefined> {
+export async function getTodos({ searchInput = "" }): Promise<Row[] | undefined> {
   const supabase = await createServerSupabaseClient();
   const { data, error } = await supabase
     .from("todo")
@@ -19,6 +21,7 @@ export async function getTodos(searchInput = ""): Promise<Row[] | undefined> {
     .order("created_at", { ascending: true });
 
   if (error) {
+    console.error(error.message);
     handleError(error);
   }
 

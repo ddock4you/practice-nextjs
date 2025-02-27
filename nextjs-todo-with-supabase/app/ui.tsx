@@ -10,19 +10,18 @@ export default function UI() {
   const [searchInput, setSearchInput] = useState("");
   const todoQuery = useQuery({
     queryKey: ["todos"],
-    queryFn: () => getTodos(searchInput),
+    queryFn: () => getTodos({ searchInput }),
   });
-
-  // const creteTodoMutation = useMutation({
-  //   mutationFn: () =>
-  //     createTodo({
-  //       title: "New Todo",
-  //       completed: false,
-  //     }),
-  //   onSuccess: () => {
-  //     todoQuery.refetch();
-  //   },
-  // });
+  const creteTodoMutation = useMutation({
+    mutationFn: () =>
+      createTodo({
+        title: "New Todo",
+        completed: false,
+      }),
+    onSuccess: () => {
+      todoQuery.refetch();
+    },
+  });
 
   return (
     <div className="w-2/3 mx-auto flex flex-col items-center py-10 gap-2">
@@ -35,13 +34,13 @@ export default function UI() {
         placeholder="Search TODO"
         icon={<i className="fas fa-search" />}
       />
-      {/* <Button onClick={() => creteTodoMutation.mutate()} loading={creteTodoMutation.isPending}>
+      <Button onClick={() => creteTodoMutation.mutate()} loading={creteTodoMutation.isPending}>
         <i className="fas fa-plus mr-2" />
         ADD TODO
-      </Button> */}
-      {/* {todoQuery.isPending && <p>Loading...</p>}
-      {todoQuery.data && todoQuery.data.map((todo) => <Todo key={todo.id} todo={todo} />)}
-      {todoQuery.isError && <p>Error: {todoQuery.error.message}</p>} */}
+      </Button>
+      {todoQuery.isPending && <p>Loading...</p>}
+      {todoQuery.isSuccess && todoQuery.data?.map((todo) => <Todo key={todo.id} todo={todo} />)}
+      {todoQuery.isError && <p>Error: {todoQuery.error.message}</p>}
     </div>
   );
 }
