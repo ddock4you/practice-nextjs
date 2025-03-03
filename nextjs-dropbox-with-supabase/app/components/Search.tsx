@@ -1,11 +1,13 @@
 "use client";
 
 import { Input } from "@material-tailwind/react";
-import { useState } from "react";
 
-export default function Search() {
-  const [searchValue, setSearchValue] = useState("");
+interface SearchProps {
+  searchValue: any;
+  setSearchValue: any;
+}
 
+export default function Search({ searchValue, setSearchValue }: SearchProps) {
   return (
     <Input
       value={searchValue}
