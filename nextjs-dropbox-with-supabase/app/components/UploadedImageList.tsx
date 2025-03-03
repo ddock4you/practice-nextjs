@@ -7,11 +7,10 @@ import { Spinner } from "@material-tailwind/react";
 
 export default function UploadedImageList({ searchInput }: { searchInput: string }) {
   const searchImageQuery = useQuery({
-    queryKey: ["searchImage", searchInput],
+    queryKey: ["images", searchInput],
     queryFn: () => searchFiles(searchInput),
   });
 
-  console.log(searchImageQuery);
   return (
     <section className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-2">
       {searchImageQuery.isLoading && <Spinner />}
