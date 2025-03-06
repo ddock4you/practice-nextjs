@@ -5,6 +5,7 @@ import ReactQueryProvider from "./config/react-query-provider";
 import "./globals.css";
 import Header from "./containers/Header";
 import Footer from "./containers/Footer";
+import RecoilProvider from "./config/recoil-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,15 +30,17 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <ReactQueryProvider>
-        <ThemeProvider>
-          <body className={inter.className}>
-            <Header />
-            {children}
-            <Footer />
-          </body>
-        </ThemeProvider>
-      </ReactQueryProvider>
+      <RecoilProvider>
+        <ReactQueryProvider>
+          <ThemeProvider>
+            <body className={inter.className}>
+              <Header />
+              {children}
+              <Footer />
+            </body>
+          </ThemeProvider>
+        </ReactQueryProvider>
+      </RecoilProvider>
     </html>
   );
 }
