@@ -1,12 +1,12 @@
 "use client";
 
 import { Button, Input } from "@material-tailwind/react";
-import Todo from "./components/todo";
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createTodo, getTodos } from "actions/todo-actions";
+import TodoList from "components/TodoList";
 
-export default function UI() {
+export default function TodoForm() {
   const [searchInput, setSearchInput] = useState("");
   const todoQuery = useQuery({
     queryKey: ["todos"],
@@ -39,7 +39,7 @@ export default function UI() {
         ADD TODO
       </Button>
       {todoQuery.isPending && <p>Loading...</p>}
-      {todoQuery.isSuccess && todoQuery.data?.map((todo) => <Todo key={todo.id} todo={todo} />)}
+      {todoQuery.isSuccess && <TodoList todos={todoQuery.data} />}
       {todoQuery.isError && <p>Error: {todoQuery.error.message}</p>}
     </div>
   );

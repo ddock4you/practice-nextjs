@@ -1,6 +1,7 @@
 "use server";
 
 import { Database } from "types_db";
+import { getKoreanTime } from "utils/format";
 import { createServerSupabaseClient } from "utils/supabase/server";
 
 export type Row = Database["public"]["Tables"]["todo"]["Row"];
@@ -59,6 +60,28 @@ export async function updateTodo(todo: Update): Promise<Update | undefined> {
 export async function deleteTodo(id: number) {
   const supabase = await createServerSupabaseClient();
   const { data, error } = await supabase.from("todo").delete().eq("id", id);
+
+  if (error) {
+    handleError(error);
+  }
+
+  return data;
+}
+
+export async function completeToggleTodo(
+  id: number,
+  completed: boolean
+): Promise<Update | undefined> {
+  const time = getKoreanTime();
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase
+    .from("todo")
+    .update({
+      completed,
+      completed_at: time,
+      updated_at: time,
+    })
+    .eq("id", id);
 
   if (error) {
     handleError(error);

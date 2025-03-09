@@ -1,10 +1,9 @@
-import Image from "next/image";
-import UI from "./ui";
+import TodoForm from "containers/TodoForm";
 
 export default function Home() {
   return (
     <main className="flex">
-      <UI />
+      <TodoForm />
     </main>
   );
 }
