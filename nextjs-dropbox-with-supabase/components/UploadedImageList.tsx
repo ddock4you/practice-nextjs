@@ -10,12 +10,12 @@ export default function UploadedImageList({ searchInput }: { searchInput: string
     queryKey: ["images", searchInput],
     queryFn: () => searchFiles(searchInput),
   });
-
+  console.log(searchImageQuery);
   return (
     <section className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-2">
       {searchImageQuery.isLoading && <Spinner />}
       {searchImageQuery.data?.map((file) => (
-        <UploadedImage key={file.id} name={file.name} />
+        <UploadedImage key={file.id} file={file} />
       ))}
     </section>
   );

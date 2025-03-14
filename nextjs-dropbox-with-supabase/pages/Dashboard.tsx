@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import FileDragAndDropZone from "../components/FileDragAndDropZone";
-import Logo from "../components/Logo";
-import Search from "../components/Search";
-import UploadedImageList from "../components/UploadedImageList";
+import FileDragAndDropZone from "@/components/FileDragAndDropZone";
+import Logo from "@/components/Logo";
+import Search from "@/components/Search";
+import UploadedImageList from "@/components/UploadedImageList";
 
 export default function Dashboard() {
   const [searchInput, setSearchInput] = useState("");

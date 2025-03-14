@@ -5,11 +5,11 @@ import { getImageUrl } from "@/utils/supabase/storage";
 import { IconButton, Spinner } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
-import { queryClient } from "../config/react-query-provider";
-import { useDropzone } from "react-dropzone";
-import { useCallback } from "react";
+import { queryClient } from "@/config/react-query-provider";
+import { FileProp } from "@/types/type";
+import { convertTime } from "@/utils/format";
 
-export default function UploadedImage({ name }: { name: string }) {
+export default function UploadedImage({ file: { name, updated_at } }: { file: FileProp }) {
   const deleteFileMutation = useMutation({
     mutationFn: deleteFile,
     onSuccess: () => {
@@ -25,7 +25,10 @@ export default function UploadedImage({ name }: { name: string }) {
       <div className="relative aspect-square w-full">
         <Image src={getImageUrl(name)} alt={name} fill className="object-cover rounded-2xl" />
       </div>
-      <div>{name}</div>
+      <ul className="space-y-1 mt-2 text-right">
+        <li className="font-sm truncate">{name}</li>
+        <li className="text-xs text-gray-800">{convertTime(updated_at)}</li>
+      </ul>
       <div className="absolute top-4 right-4">
         <IconButton
           onClick={() => {

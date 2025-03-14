@@ -4,7 +4,7 @@ import { uploadFile } from "@/actions/storage";
 import { Button, Spinner } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useRef } from "react";
-import { queryClient } from "../config/react-query-provider";
+import { queryClient } from "@/config/react-query-provider";
 import { useDropzone } from "react-dropzone";
 
 export default function FileDragAndDropZone() {
