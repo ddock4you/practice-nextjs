@@ -4,7 +4,7 @@ export type FileProp = {
   updated_at: string;
   created_at: string;
   last_accessed_at: string;
-  metadata: MetadataProp;
+  metadata?: MetadataProp;
 };
 
 export type MetadataProp = {
