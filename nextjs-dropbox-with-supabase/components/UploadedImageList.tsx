@@ -14,7 +14,6 @@ export default function UploadedImageList({
     queryKey: ['images', searchInput],
     queryFn: () => searchFiles(searchInput),
   });
-  console.log(searchImageQuery);
   return (
     <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {searchImageQuery.isLoading && <Spinner />}

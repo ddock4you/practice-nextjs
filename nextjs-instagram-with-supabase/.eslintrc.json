@@ -1,0 +1,4 @@
+{
+  "plugins": ["@tanstack/query"],
+  "extends": ["next/core-web-vitals", "plugin:@tanstack/query/recommended"]
+}
