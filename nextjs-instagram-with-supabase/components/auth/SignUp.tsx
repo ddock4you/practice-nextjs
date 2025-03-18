@@ -1,13 +1,36 @@
 'use client';
 
+import { createBrowserSupabaseClient } from '@/utils/supabase/client';
 import { Button } from '@material-tailwind/react';
 import { Input } from '@material-tailwind/react';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
 
 export default function SignUp({ setView }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmationRequired, setConfirmationRequired] = useState(false);
+
+  const supabase = createBrowserSupabaseClient();
+
+  const signMutation = useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: 'http://localhost:3000/signup/confirm',
+        },
+      });
+      if (data) {
+        setConfirmationRequired(true);
+      }
+      if (error) {
+        alert(error.message);
+      }
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -28,17 +51,21 @@ export default function SignUp({ setView }) {
           className="w-full rounded-sm"
         />
         <Button
-          onClick={() => console.log('signup')}
+          onClick={() => {
+            signMutation.mutate();
+          }}
+          loading={signMutation.isPending}
           color="light-blue"
           className="text-md w-full py-1"
+          disabled={confirmationRequired}
         >
-          가입하기
+          {confirmationRequired ? '이메일을 확인해주세요.' : '가입하기'}
         </Button>
       </div>
       <div className="w-full max-w-lg border border-gray-400 bg-white py-4 text-center">
         이미 계정이 있으신가요?{' '}
         <button
-          className="text-light-blue-600 font-bold"
+          className="font-bold text-light-blue-600"
           onClick={() => {
             setView('SIGNIN');
           }}
