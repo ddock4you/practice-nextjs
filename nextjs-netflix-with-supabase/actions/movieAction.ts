@@ -16,6 +16,8 @@ export const searchMovies = async ({ search, page, pageSize }) => {
     .from("movie")
     .select("*")
     .ilike("title", `%${search}%`)
+    .order("is_favorite", { ascending: false })
+    .order("id", { ascending: true })
     .range((page - 1) * pageSize, page * pageSize - 1);
   handleErrors(error);
 
@@ -42,6 +44,18 @@ export const searchMovies = async ({ search, page, pageSize }) => {
 export const getMovie = async (id: number) => {
   const supabase = await createServerSupabaseClient();
   const { data, error } = await supabase.from("movie").select("*").eq("id", id).maybeSingle();
+  handleErrors(error);
+
+  return data;
+};
+
+export const toggleFavoriteMovie = async (id: number, isFavorite: boolean) => {
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase
+    .from("movie")
+    .update({ is_favorite: !isFavorite })
+    .eq("id", id);
+
   handleErrors(error);
 
   return data;

@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "./containers/Header";
 import Footer from "./containers/Footer";
 import RecoilProvider from "./config/recoil-provider";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,7 @@ export default function RootLayout({
               <Header />
               {children}
               <Footer />
+              <Toaster position="bottom-right" />
             </body>
           </ThemeProvider>
         </ReactQueryProvider>

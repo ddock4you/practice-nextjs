@@ -9,10 +9,62 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      image_info: {
+        Row: {
+          created_at: string
+          file_name: string
+          id: number
+          mime_type: string
+          uuid: string
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          id?: number
+          mime_type: string
+          uuid: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          id?: number
+          mime_type?: string
+          uuid?: string
+        }
+        Relationships: []
+      }
+      message: {
+        Row: {
+          created_at: string
+          id: number
+          is_deleted: boolean
+          message: string
+          receiver: string
+          sender: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          is_deleted?: boolean
+          message: string
+          receiver: string
+          sender: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          is_deleted?: boolean
+          message?: string
+          receiver?: string
+          sender?: string
+        }
+        Relationships: []
+      }
       movie: {
         Row: {
           id: number
           image_url: string
+          is_favorite: boolean
           overview: string
           popularity: number
           release_date: string
@@ -22,6 +74,7 @@ export type Database = {
         Insert: {
           id?: number
           image_url: string
+          is_favorite?: boolean
           overview: string
           popularity: number
           release_date: string
@@ -31,6 +84,7 @@ export type Database = {
         Update: {
           id?: number
           image_url?: string
+          is_favorite?: boolean
           overview?: string
           popularity?: number
           release_date?: string
@@ -42,6 +96,7 @@ export type Database = {
       todo: {
         Row: {
           completed: boolean
+          completed_at: string | null
           created_at: string
           id: number
           title: string
@@ -49,6 +104,7 @@ export type Database = {
         }
         Insert: {
           completed: boolean
+          completed_at?: string | null
           created_at?: string
           id?: number
           title: string
@@ -56,6 +112,7 @@ export type Database = {
         }
         Update: {
           completed?: boolean
+          completed_at?: string | null
           created_at?: string
           id?: number
           title?: string
