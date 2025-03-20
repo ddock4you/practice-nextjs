@@ -26,7 +26,7 @@ export default async function RootLayout({
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  console.log({ session });
+  // console.log({ session });
   const loggedIn = false;
   return (
     <html lang="ko">
