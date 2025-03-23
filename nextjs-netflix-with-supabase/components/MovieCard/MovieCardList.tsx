@@ -24,18 +24,15 @@ export default function MovieCardList() {
   });
 
   useEffect(() => {
-    console.log("inView", inView);
     if (inView && hasNextPage && !isFetching && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage]);
+  }, [inView, hasNextPage, fetchNextPage, isFetching, isFetchingNextPage]);
 
   return (
     <div className="grid gap-1 md:grid-cols-4 grid-cols-3 w-full h-full">
       {isFetching || (isFetchingNextPage && <Spinner />)}
       <>
-        {console.log(data)}
-        {console.log(data?.pages.flat())}
         {data?.pages?.map((page) =>
           page.data?.flat().map((movie) => <MovieCardItem key={movie.id} movie={movie} />)
         )}

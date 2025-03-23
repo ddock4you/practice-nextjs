@@ -1,4 +1,3 @@
-// hooks/use-toggle-favorite.ts
 "use client";
 
 import { useState } from "react";

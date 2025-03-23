@@ -1,7 +1,7 @@
 "use client";
 
 import { useRecoilState } from "recoil";
-import Logo from "../components/Logo";
+import Logo from "@/components/Logo";
 import { searchState } from "@/utils/recoil/atoms";
 
 export default function Header() {

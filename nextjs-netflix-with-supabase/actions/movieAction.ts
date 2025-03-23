@@ -1,6 +1,6 @@
 "use server";
 
-import { createServerSupabaseClient } from "../utils/supabase/server";
+import { createServerSupabaseClient } from "@/utils/supabase/server";
 
 const handleErrors = (error: Error | null) => {
   if (error) {
@@ -9,8 +9,13 @@ const handleErrors = (error: Error | null) => {
   }
 };
 
-export const searchMovies = async ({ search, page, pageSize }) => {
-  console.log({ search, page, pageSize });
+type searchMoviesProps = {
+  search: string;
+  page: number;
+  pageSize: number;
+};
+
+export const searchMovies = async ({ search, page, pageSize }: searchMoviesProps) => {
   const supabase = await createServerSupabaseClient();
   const { data, count, error } = await supabase
     .from("movie")
@@ -19,6 +24,7 @@ export const searchMovies = async ({ search, page, pageSize }) => {
     .order("is_favorite", { ascending: false })
     .order("id", { ascending: true })
     .range((page - 1) * pageSize, page * pageSize - 1);
+
   handleErrors(error);
 
   const hasNextPage = count && count > page * pageSize - 1;

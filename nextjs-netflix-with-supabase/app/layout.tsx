@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "./config/material-tailwind-provider";
-import ReactQueryProvider from "./config/react-query-provider";
+import { ThemeProvider } from "@/config/material-tailwind-provider";
+import ReactQueryProvider from "@/config/react-query-provider";
 import "./globals.css";
-import Header from "./containers/Header";
-import Footer from "./containers/Footer";
-import RecoilProvider from "./config/recoil-provider";
+import Header from "@/containers/Header";
+import Footer from "@/containers/Footer";
+import RecoilProvider from "@/config/recoil-provider";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });

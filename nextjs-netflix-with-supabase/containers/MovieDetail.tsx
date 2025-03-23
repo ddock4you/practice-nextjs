@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import { Database } from "@/types_db";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { toggleFavoriteMovie } from "@/actions/movieAction";
-import { toast } from "sonner";
-import FavoriteButton from "../components/FavoriteButton";
+import FavoriteButton from "@/components/FavoriteButton";
 import useToggleFavorite from "@/hooks/useToggleFavorite";
 
 type Movie = Database["public"]["Tables"]["movie"]["Row"];

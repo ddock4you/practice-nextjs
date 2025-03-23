@@ -1,5 +1,5 @@
 import { getMovie } from "@/actions/movieAction";
-import MovieDetail from "@/app/containers/MovieDetail";
+import MovieDetail from "@/containers/MovieDetail";
 import { Database } from "@/types_db";
 
 type Movie = Database["public"]["Tables"]["movie"]["Row"];
