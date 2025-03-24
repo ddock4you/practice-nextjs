@@ -1,22 +1,32 @@
 'use client';
-import { Button } from '@material-tailwind/react';
 import Person from './Person';
 import Message from './Message';
 import { useRecoilValue } from 'recoil';
-import { selectedIndexState } from '@/utils/recoil/atoms';
+import {
+  selectedUserIdState,
+  selectedUserIndexState,
+} from '@/utils/recoil/atoms';
+import { useQuery } from '@tanstack/react-query';
+import { getUserById } from '@/actions/chatActions';
 
 export default function ChatScreen() {
-  const selectedIndex = useRecoilValue(selectedIndexState);
-
-  return selectedIndex !== null ? (
+  const selectedUserId = useRecoilValue(selectedUserIdState);
+  const selectedUserIndex = useRecoilValue(selectedUserIndexState);
+  console.log({ selectedUserId });
+  const selectedUserQuery = useQuery({
+    queryKey: ['user', selectedUserId],
+    queryFn: () => getUserById(selectedUserId),
+  });
+  console.log(selectedUserQuery.data);
+  return selectedUserQuery.data !== null ? (
     <div className="flex h-screen w-full flex-col">
       <Person
-        index={selectedIndex}
-        userId="test"
-        name="test name"
-        onlineAt={new Date().toISOString()}
+        index={selectedUserIndex}
         isActive={false}
+        name={selectedUserQuery.data?.email?.split('@')[0]}
         onChatScreen={true}
+        onlineAt={new Date().toISOString()}
+        userId={selectedUserQuery.data?.id}
       />
       <div className="flex w-full flex-1 flex-col gap-3 p-4">
         <Message isFromMe={true} message="안녕하세요." />
