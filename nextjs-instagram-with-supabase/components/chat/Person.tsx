@@ -26,7 +26,9 @@ export default function Person({
       />
       <div>
         <p className="text-xl font-bold text-black">{name}</p>
-        <p className="text-gray-500">{timeAgo.format(Date.parse(onlineAt))}</p>
+        <p className="text-gray-500">
+          {onlineAt && timeAgo.format(Date.parse(onlineAt))}
+        </p>
       </div>
     </div>
   );

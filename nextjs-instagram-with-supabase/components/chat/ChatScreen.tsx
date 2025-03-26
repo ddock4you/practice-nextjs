@@ -3,6 +3,7 @@ import Person from './Person';
 import Message from './Message';
 import { useRecoilValue } from 'recoil';
 import {
+  presenceState,
   selectedUserIdState,
   selectedUserIndexState,
 } from '@/utils/recoil/atoms';
@@ -12,12 +13,13 @@ import { getUserById } from '@/actions/chatActions';
 export default function ChatScreen() {
   const selectedUserId = useRecoilValue(selectedUserIdState);
   const selectedUserIndex = useRecoilValue(selectedUserIndexState);
-  console.log({ selectedUserId });
+  const presence = useRecoilValue(presenceState);
+  // console.log({ selectedUserId });
   const selectedUserQuery = useQuery({
     queryKey: ['user', selectedUserId],
     queryFn: () => getUserById(selectedUserId),
   });
-  console.log(selectedUserQuery.data);
+  // console.log(selectedUserQuery.data);
   return selectedUserQuery.data !== null ? (
     <div className="flex h-screen w-full flex-col">
       <Person
@@ -26,9 +28,9 @@ export default function ChatScreen() {
         name={selectedUserQuery.data?.email?.split('@')[0]}
         onChatScreen={true}
         onlineAt={new Date().toISOString()}
-        userId={selectedUserQuery.data?.id}
+        userId={presence?.selectedUserId?.[0].onlineAt}
       />
-      <div className="flex w-full flex-1 flex-col gap-3 p-4">
+      <div className="flex w-full flex-1 flex-col gap-3 overscroll-y-auto p-4">
         <Message isFromMe={true} message="안녕하세요." />
         <Message isFromMe={false} message="안녕하세요." />
       </div>
