@@ -24,32 +24,6 @@ export async function getUserById(userId) {
   return data.user;
 }
 
-export async function sendMessage({ message, chatUserId }) {
-  const supabase = await createServerSupabaseClient();
-
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
-
-  if (error || !session.user) {
-    throw new Error('User not authenticated');
-  }
-
-  const { data, error: sendMessageError } = await supabase
-    .from('message')
-    .insert({
-      message,
-      receiver: chatUserId,
-      sender: session!.user.id,
-    });
-
-  if (sendMessageError) {
-    throw new Error(sendMessageError.message);
-  }
-
-  return data;
-}
 export async function getAllMessages({ chatUserId }) {
   const supabase = await createServerSupabaseClient();
 
@@ -70,7 +44,8 @@ export async function getAllMessages({ chatUserId }) {
     .order('created_at', { ascending: true });
 
   if (getMessageError) {
-    throw new Error(getMessageError.message);
+    console.log({ getMessageError });
+    throw getMessageError.message;
   }
 
   return data;
