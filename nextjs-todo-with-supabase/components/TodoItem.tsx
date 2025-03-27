@@ -45,7 +45,9 @@ export default function Todo({ todo }: TodoProps) {
 
   return (
     <div className="w-full flex item-center gap-1">
-      <Checkbox
+      <input
+        type="checkbox"
+        className="h-5 w-5"
         checked={completed}
         onChange={(e) => {
           setCompleted(e.target.checked);
